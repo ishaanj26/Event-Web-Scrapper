@@ -6,6 +6,7 @@ import { AutoRefreshStatus } from './components/AutoRefresh/AutoRefresh';
 import { ErrorDisplay, LoadingState } from './components/State/State';
 import { CityOverview, EventsSection, RawDataSection } from './components/Event/Event';
 import { EmailModal } from './components/EmailModel/EmailModel';
+import { validateEmail } from './utilities/utilities';
 
 // Custom Hook for Auto-Refresh
 const useAutoRefresh = (scrapeCity) => {
@@ -77,7 +78,6 @@ const CityScraperApp = () => {
       if (!isAutoRefresh) {
         setError('');
       }
-      // const response = await axios.post('https://event-web-scrapper.onrender.com/api/scrape-events', {
       const response = await axios.post('https://event-web-scrapper.onrender.com/api/scrape-events', {
         city,
         country

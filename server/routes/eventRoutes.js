@@ -1,5 +1,7 @@
 import express from 'express'
-import puppeteer from 'puppeteer';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+
 
 const eventRouter = express.Router()
 
@@ -9,40 +11,26 @@ eventRouter.post('/', async (req, res) => {
 
     try {
         const url = `https://www.eventbrite.com/d/${country.toLowerCase()}--${city.toLowerCase()}/events/`;
+        const response = await axios.get(url);
+        const $ = cheerio.load(response.data);
 
-        const browser = await puppeteer.launch({ headless: true });
-        const page = await browser.newPage();
-        await page.goto(url, { waitUntil: 'networkidle2' });
-
+        const events = [];
         // Wait for event cards to load
-        await page.waitForSelector('.small-card-mobile', { timeout: 10000 });
+        $('.popular_events--bucket-wrapper .browse-cards-container .small-card-mobile').each((i, el) => {
+            const name = $(el).find('.event-card__clamp-line--two').text().trim();
+            const venue = $(el).find('.event-card__clamp-line--one').text().trim();
+            const date = $(el).find('.event-card-details .Typography_body-md-bold__487rx').eq(0).text().trim();
+            const ticketUrl = $(el).find('.event-card-link').attr('href');
+            const photo = $(el).find('.event-card-image').attr('src');
 
-        const events = await page.evaluate(() => {
-            const eventNodes = document.querySelectorAll('.popular_events--bucket-wrapper .browse-cards-container .small-card-mobile');
-            const data = [];
-
-            eventNodes.forEach(el => {
-                const photoEl = el.querySelector('.event-card-image');
-                const nameEl = el.querySelector('.event-card__clamp-line--two');
-                const venueEl = el.querySelector('.Typography_root__487rx.Typography_body-md__487rx.event-card__clamp-line--one.Typography_align-match-parent__487rx');
-                const ticketEl = el.querySelector('.event-card-link');
-
-                const dateEls = el.querySelectorAll('.event-card-details .Typography_root__487rx.Typography_body-md-bold__487rx.Typography_align-match-parent__487rx');
-                const date = dateEls.length >= 2 ? dateEls[dateEls.length - 2].innerText.trim() : '';
-
-                data.push({
-                    name: nameEl?.innerText.trim() || '',
-                    venue: venueEl?.innerText.trim() || '',
-                    date: date || '',
-                    ticketUrl: ticketEl?.getAttribute('href') || '',
-                    photo: photoEl?.getAttribute('src') || ''
-                });
+            events.push({
+                name,
+                venue,
+                date,
+                ticketUrl,
+                photo
             });
-
-            return data;
         });
-
-        await browser.close();
 
         res.json({ city, country, events });
 
