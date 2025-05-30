@@ -11,7 +11,7 @@ const app = express();
 const port = 8080
 
 
-const allowedOrigins = ['https://event-web-scrapper.vercel.app/']
+const allowedOrigins = ['https://event-web-scrapper.vercel.app','http://localhost:5173']
 
 app.use(express.json())
 app.use(cookieParser())
