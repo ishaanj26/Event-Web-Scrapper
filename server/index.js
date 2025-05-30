@@ -1,5 +1,4 @@
 import express from 'express'
-import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
@@ -11,13 +10,8 @@ dotenv.config()
 const app = express();
 const port = 8080
 
-// mongoose.connect(`${process.env.MONGO}`).then(() => {
-//     console.log('Connected to MongoDB');
-// }).catch((err) => {
-//     console.log(err)
-// });
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173']
+const allowedOrigins = ['https://event-web-scrapper.vercel.app/']
 
 app.use(express.json())
 app.use(cookieParser())
