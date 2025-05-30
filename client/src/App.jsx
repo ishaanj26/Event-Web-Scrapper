@@ -1,7 +1,5 @@
 import axios from 'axios'
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, MapPin, Loader2, AlertCircle, Clock, Calendar, Globe, Ticket, X, Mail, RefreshCw } from 'lucide-react';
-import { formatEventDate, getCategoryColor, validateEmail, formatCountdown } from './utilities/utilities';
 import { Header, Instructions } from './components/Header/Header';
 import { SearchForm } from './components/SearchForm/SearchForm';
 import { AutoRefreshStatus } from './components/AutoRefresh/AutoRefresh';
@@ -80,7 +78,7 @@ const CityScraperApp = () => {
         setError('');
       }
       // const response = await axios.post('https://event-web-scrapper.onrender.com/api/scrape-events', {
-      const response = await axios.post('http://localhost:8080/api/scrape-events', {
+      const response = await axios.post('https://event-web-scrapper.onrender.com/api/scrape-events', {
         city,
         country
       });
