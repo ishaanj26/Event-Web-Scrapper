@@ -71,7 +71,6 @@ const CityScraperApp = () => {
   const [emailOptIn, setEmailOptIn] = useState(false);
   const [emailError, setEmailError] = useState('');
 
-  // Mock API call
   const scrapeCity = async (city, country, isAutoRefresh = false) => {
     try {
       setLoading(true);
@@ -215,7 +214,6 @@ const CityScraperApp = () => {
           <LoadingState
             cityName={cityName}
             countryName={countryName}
-            scrapedData={scrapedData}
           />
         )}
 

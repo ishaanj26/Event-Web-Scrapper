@@ -12,10 +12,10 @@ export const ErrorDisplay = ({ error }) => {
 };
 
 // Loading State Component
-export const LoadingState = ({ cityName, countryName, scrapedData }) => (
+export const LoadingState = ({ cityName, countryName }) => (
   <div className="bg-gray-900 bg-opacity-90 rounded-lg shadow-lg p-6 mb-8 text-center">
     <Loader2 className="h-12 w-12 animate-spin mx-auto mb-4 text-purple-600" />
-    <p className="text-white">Scraping data for {scrapedData?.city || cityName}, {scrapedData?.country || countryName}...</p>
+    <p className="text-white">Scraping data for {cityName }, { countryName }...</p>
     <p className="text-sm text-white mt-2">This may take a few seconds</p>
   </div>
 );
