@@ -79,7 +79,7 @@ const CityScraperApp = () => {
       if (!isAutoRefresh) {
         setError('');
       }
-      const response = await axios.post('http://localhost:8080/api/scrape-events', {
+      const response = await axios.post('https://event-web-scrapper.onrender.com/api/scrape-events', {
         city,
         country
       });
