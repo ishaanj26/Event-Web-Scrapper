@@ -1,5 +1,5 @@
-import {  Clock,Calendar, MapPin,Ticket } from 'lucide-react';
-import { formatEventDate, getCategoryColor } from '../../utilities/utilities';
+import { Clock, Calendar, MapPin, Ticket } from 'lucide-react';
+import { capitalizeFirstLetter, formatEventDate, getCategoryColor } from '../../utilities/utilities';
 
 // City Overview Component
 export const CityOverview = ({ city, country, lastUpdated }) => (
@@ -13,7 +13,7 @@ export const CityOverview = ({ city, country, lastUpdated }) => (
     <div className="flex justify-center mb-3">
       <h2 className="text-3xl font-semibold text-white flex items-center gap-2">
         <MapPin className="h-7 w-7 text-indigo-500" />
-        {city}, {country}
+        {capitalizeFirstLetter(city)}, {capitalizeFirstLetter(country)}
       </h2>
     </div>
   </div>

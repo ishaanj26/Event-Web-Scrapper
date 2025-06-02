@@ -31,3 +31,8 @@ export const formatCountdown = (seconds) => {
   const remainingSeconds = seconds % 60;
   return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
+
+export const capitalizeFirstLetter = (str) => {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
